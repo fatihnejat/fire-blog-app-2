@@ -1,11 +1,13 @@
 import { Box, Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { LoginContext } from "../context/LoginContextProvider";
 import { createPost } from "../helpers/functions";
 
 const NewPost = () => {
-  const { info, setInfo,currentUser } = useContext(LoginContext);
+  const navigate = useNavigate();
+  const { info, setInfo, currentUser } = useContext(LoginContext);
 
   console.log(info);
 
@@ -15,8 +17,9 @@ const NewPost = () => {
     setInfo({ ...info, [name]: value });
   };
   const handleCreate = () => {
-    createPost(info,currentUser)
-  }
+    createPost(info, currentUser);
+    navigate("/");
+  };
 
   return (
     <Box
@@ -73,7 +76,11 @@ const NewPost = () => {
         onChange={handleChange}
         value={info.content}
       />
-      <Button onClick={handleCreate} sx={{ width: "400px" }} variant="contained">
+      <Button
+        onClick={handleCreate}
+        sx={{ width: "400px" }}
+        variant="contained"
+      >
         Submit
       </Button>
     </Box>
